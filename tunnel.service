@@ -1,0 +1,13 @@
+[Unit]
+Description=Service to maintain an ssh reverse tunnel
+After=network.target
+
+[Service]
+User=your_linux_user
+ExecStart=/usr/bin/ssh -i /home/your_linux_user/path_to_key/key_server.pem -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -gnNT -R 8080:localhost:22 ubuntu@1.2.3.4 vmstat 5
+RestartSec=15
+Restart=always
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target
